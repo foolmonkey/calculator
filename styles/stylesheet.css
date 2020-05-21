@@ -1,0 +1,35 @@
+body{
+    background-color: rgb(240, 240, 240);
+}
+
+#gameName{
+    font-size: 2.8em;
+    font-weight: lighter;
+    display: flex;
+    justify-content: center;
+    font-family: 'Rubik', cursive;
+    margin: 0;
+    padding: 0.5em;
+    color: white;
+    background-color: rgb(155, 27, 27); 
+}
+
+#container{
+    width: 50vh;
+    height: 80vh;
+    display: flex;
+    flex-flow: column;
+    background-color: white;
+    margin: auto;
+    margin-top: 3vh;
+}
+
+.containerRow{
+    flex-grow: 1;
+    display: flex;
+    flex-flow: row;
+}
+
+.containerBox{
+    flex-grow: 1;
+}
