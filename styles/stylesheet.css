@@ -1,5 +1,6 @@
 body{
     background-color: rgb(240, 240, 240);
+    font-family: 'Rubik', sans-serif;
 }
 
 #gameName{
@@ -15,13 +16,16 @@ body{
 }
 
 #container{
-    width: 50vh;
+    width: 60vh;
     height: 80vh;
     display: flex;
     flex-flow: column;
     background-color: white;
     margin: auto;
     margin-top: 3vh;
+    padding: 1vw;
+    border-radius: 10px;
+    background-color: #b32020;
 }
 
 .containerRow{
@@ -30,6 +34,33 @@ body{
     flex-flow: row;
 }
 
-.containerBox{
-    flex-grow: 1;
+#display{
+    height: 15vh;
+}
+
+input{
+    width: -webkit-fill-available;
+    font-size: 7vh;
+    text-align: right;
+    border-radius: 10px;
+    border-style: none;
+    border-radius: 7px;
+    margin: 2vh;
+    padding: 0 1.1vh 0 1.1vh;
+    outline: none;
+
+}
+
+button{
+    width: -webkit-fill-available;
+    font-size: 7vh;
+    margin: 1.6vh;
+    border-radius: 20%;
+    border-style: none;
+    user-select: none;
+    outline: none;
+}
+
+button:hover{
+    background-color: gray;
 }
