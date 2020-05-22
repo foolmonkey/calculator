@@ -56,7 +56,7 @@ input{
     outline: none;
 }
 
-#prevResult{
+#prevInputs{
     text-align: right;
     width: -webkit-fill-available;
     margin: 2vh 1.5vh 0vh 2.5vh;
@@ -66,11 +66,13 @@ input{
     font-size: 2.5vh;
 }
 
+/*
 #display:hover{
     -moz-box-shadow:    inset 0 0 8px #cfcfcf;
     -webkit-box-shadow: inset 0 0 8px #cfcfcf;
     box-shadow:         inset 0 0 8px #cfcfcf;
 }
+*/
 
 ::-moz-selection { 
     background: rgb(192, 192, 192);
