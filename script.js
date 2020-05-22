@@ -43,6 +43,8 @@ function operate(firstNum, secondNum, operator) {
 for (let i = 0, len = buttons.length; i < len; i++) {
     buttons[i].addEventListener('click', function (e) {
         let toAppend = buttons[i].textContent;
+        let lastInput = inputs.value.slice(-1);
+
         switch (toAppend) {
             case '=':
                 break;
@@ -51,49 +53,62 @@ for (let i = 0, len = buttons.length; i < len; i++) {
                 prevInputs.textContent = '';
                 break;
             default:
-                inputs.value += buttons[i].textContent;
+                if(lastInput != " " && (lastInput != "%" && "1234567890".includes(lastInput))){
+                    inputs.value += toAppend;
+                }            
         }
     });
 }
 
 // enable keyboard input
 window.onkeydown = function (e) {
-    let val = "1234567890";
+    let digits = "1234567890";
     let operators = "-+÷x";
     let altMultiplication = "X*";
     let altDivision = '/';
     let decimal = '.';
 
+    let lastInput = inputs.value.slice(-1);
+
     // prevent user from selecting input field
     if (e.code != "ArrowLeft" && e.code != "ArrowRight") {
         e.preventDefault();
-    } else{
+    } else {
         inputs.focus();
     }
 
-    // check if keyboard input is valid
-    if (val.includes(e.key)) {
-        // numbers
-        inputs.value += e.key;
-    } else if (operators.includes(e.key) && inputs.value.slice(-1) != " ") {
-        // operators
-        inputs.value += ` ${e.key} `;
-    } else if (altMultiplication.includes(e.key) && inputs.value.slice(-1) != " ") {
-        inputs.value += " x ";
-    } else if (altDivision == e.key && inputs.value.slice(-1) != " ") {
-        inputs.value += " ÷ ";
-    } else if (e.key == '=') {
-        // do equals operation
-    } else if (e.key == "Backspace" || e.key == "Delete") {
+    // numbers
+    if (digits.includes(e.key)) {
+        if(lastInput != '%'){
+            inputs.value += e.key;
+        }
         // deletion
+    } else if (e.key == "Backspace" || e.key == "Delete") {
         numToDelete = -1;
-        if (inputs.value.slice(-1) == " ") {
+        if (lastInput == " ") {
             numToDelete = -3;
         }
 
         inputs.value = inputs.value.slice(0, numToDelete);
     }
+
+    if (lastInput != " ") {
+        if (operators.includes(e.key)) {
+            inputs.value += ` ${e.key} `;
+        } else if (altMultiplication.includes(e.key)) {
+            inputs.value += " x ";
+        } else if (altDivision == e.key) {
+            inputs.value += " ÷ ";
+        } else if ('%' == e.key) {
+            if (digits.includes(lastInput) && lastInput != '%') {
+                inputs.value += "%";
+            }
+        } else if (e.key == '=') {
+            // do equals operation
+        }
+    }
 };
+
 
 function getInputs() {
 
