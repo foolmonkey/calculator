@@ -39,6 +39,81 @@ function operate(firstNum, operator, secondNum) {
     return result;
 }
 
+function getInputs() {
+    let str = inputs.value;
+    let allValues = str.split(" ");
+
+    return allValues;
+}
+
+function orderOfOperations(values) {
+    let aCopy = values;
+    let answer = 0;
+
+    if (aCopy.length == 0) {
+        answer = 0;
+    } else if (aCopy.length == 1) {
+        answer = Number(aCopy[0]);
+    } else {
+        // perform normal order of operations
+        while (aCopy.length > 1) {
+            let multiplyDivide = false;
+            let smallAnswer = 0;
+            let indexToOperate = 0;
+
+            // check for multiplication or division operators
+            if (aCopy.includes("÷") || aCopy.includes("x")) {
+                multiplyDivide = true;
+            }
+
+            // if array contains x or division operators, do those first, otherwise perform +/- operations
+            for (let i = 1; i < aCopy.length; i += 2) {
+                if (multiplyDivide) {
+                    if (aCopy[i] == 'x' || aCopy[i] == '÷') {
+                        smallAnswer = operate(Number(aCopy[i - 1]), aCopy[i], Number(aCopy[i + 1]));
+                        indexToOperate = i;
+                        break;
+                    }
+                } else {
+                    smallAnswer = operate(Number(aCopy[i - 1]), aCopy[i], Number(aCopy[i + 1]));
+                    indexToOperate = i;
+                    break;
+                }
+            }
+
+            aCopy.splice(indexToOperate - 1, 3, smallAnswer);
+        }
+
+        answer = Number(aCopy[0]);
+    }
+
+    answer = Math.round((answer + Number.EPSILON) * 10000000000) / 10000000000;
+
+    return answer;
+}
+
+function displayResult() {
+    let answer = orderOfOperations(getInputs());
+
+    prevInputs.textContent = inputs.value + " =";
+    inputs.value = answer;
+}
+
+function hasDecimals() {
+    let nums = getInputs();
+
+    if (nums[0] != "") {
+        let lastNum = nums[nums.length - 1];
+        let decimal = '.';
+        
+        if (lastNum.includes(decimal)) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
 // handle calculator buttons
 for (let i = 0, len = buttons.length; i < len; i++) {
     buttons[i].addEventListener('click', function (e) {
@@ -48,7 +123,7 @@ for (let i = 0, len = buttons.length; i < len; i++) {
         switch (toAppend) {
             case '=':
                 if (lastInput != " ") {
-                    orderOfOperations(getInputs());
+                    displayResult();
                 }
                 break;
             case 'C':
@@ -57,6 +132,11 @@ for (let i = 0, len = buttons.length; i < len; i++) {
                 break;
             case '%':
                 if ("1234567890".includes(lastInput)) {
+                    inputs.value += toAppend;
+                }
+                break;
+            case '.':
+                if(!hasDecimals()){
                     inputs.value += toAppend;
                 }
                 break;
@@ -117,18 +197,16 @@ window.onkeydown = function (e) {
             if (digits.includes(lastInput) && lastInput != '%') {
                 inputs.value += "%";
             }
+        } else if (e.key == '.') {
+            if (!this.hasDecimals()) {
+                inputs.value += '.';
+            }
         } else if (e.key == '=') {
             // do equals operation
-            orderOfOperations(getInputs());
+            this.displayResult();
         }
     }
 };
-
-
-function getInputs() {
-    let str = inputs.value;
-    let allValues = str.split(" ");
-}
 
 // enable keyboard input
 window.onkeypress = function (e) {
@@ -136,8 +214,6 @@ window.onkeypress = function (e) {
     let operators = "-+÷x";
     let altMultiplication = "X*";
     let altDivision = '/';
-    let decimal = '.';
-
     let lastInput = inputs.value.slice(-1);
 
     // prevent user from selecting input field
@@ -175,62 +251,7 @@ window.onkeypress = function (e) {
             }
         } else if (e.key == '=') {
             // do equals operation
-            orderOfOperations(getInputs());
+            this.displayResult();
         }
     }
 };
-
-
-function getInputs() {
-    let str = inputs.value;
-    let allValues = str.split(" ");
-    console.log(allValues);
-
-    return allValues;
-}
-
-function orderOfOperations(values){
-    let aCopy = values;
-    let answer = 0;
-    
-    if(aCopy.length == 0){
-        answer = 0;
-    } else if(aCopy.length == 1){
-        answer = Number(aCopy[0]);
-    } else{
-        // perform normal order of operations
-        while(aCopy.length > 1){
-            let multiplyDivide = false;
-            let smallAnswer = 0;
-            let indexToOperate = 0;
-
-            // check for multiplication or division operators
-            if(aCopy.includes("÷") || aCopy.includes("x")){
-                multiplyDivide = true;   
-            }
-            
-            // if array contains x or division operators, do those first, otherwise perform +/- operations
-            for(let i = 1; i < aCopy.length; i += 2){
-                if(multiplyDivide){
-                    if(aCopy[i] == 'x' || aCopy[i] == '÷'){
-                        smallAnswer = operate(Number(aCopy[i-1]), aCopy[i], Number(aCopy[i+1]));
-                        indexToOperate = i;
-                        break;
-                    } 
-                } else{
-                    smallAnswer = operate(Number(aCopy[i-1]), aCopy[i], Number(aCopy[i+1]));
-                    indexToOperate = i;
-                    break;
-                }
-            }
-
-            aCopy.splice(indexToOperate-1, 3, smallAnswer);
-        }
-
-        answer = Number(aCopy[0]);
-    }
-
-    return answer;
-}
-
-
