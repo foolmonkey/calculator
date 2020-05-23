@@ -105,13 +105,25 @@ function hasDecimals() {
     if (nums[0] != "") {
         let lastNum = nums[nums.length - 1];
         let decimal = '.';
-        
+
         if (lastNum.includes(decimal)) {
             return true;
         }
     }
-    
+
     return false;
+}
+
+function convertSign() {
+    let nums = getInputs();
+
+    if (nums[0] != "") {
+        let lastNum = nums[nums.length - 1];
+
+        nums[nums.length - 1] = Number(nums[nums.length - 1]) * -1;
+
+        inputs.value = nums.join(" ");
+    }
 }
 
 // handle calculator buttons
@@ -130,23 +142,27 @@ for (let i = 0, len = buttons.length; i < len; i++) {
                 inputs.value = '';
                 prevInputs.textContent = '';
                 break;
-            case '%':
-                if ("1234567890".includes(lastInput)) {
+            case '.':
+                if (!hasDecimals()) {
                     inputs.value += toAppend;
                 }
                 break;
-            case '.':
-                if(!hasDecimals()){
-                    inputs.value += toAppend;
+            case '⌫':
+                numToDelete = -1;
+                if (lastInput == " ") {
+                    numToDelete = -3;
                 }
+
+                inputs.value = inputs.value.slice(0, numToDelete);
+                break;
+            case '+/-':
+                convertSign();
                 break;
             default:
                 if ("1234567890".includes(lastInput)) {
                     inputs.value += toAppend;
                 } else if ("1234567890".includes(toAppend)) {
-                    if ('%' != lastInput) {
-                        inputs.value += toAppend;
-                    }
+                    inputs.value += toAppend;
                 } else if (lastInput != " ") {
                     inputs.value += toAppend;
                 }
@@ -160,7 +176,6 @@ window.onkeydown = function (e) {
     let operators = "-+÷x";
     let altMultiplication = "X*";
     let altDivision = '/';
-    let decimal = '.';
 
     let lastInput = inputs.value.slice(-1);
 
@@ -173,9 +188,7 @@ window.onkeydown = function (e) {
 
     // numbers
     if (digits.includes(e.key)) {
-        if (lastInput != '%') {
-            inputs.value += e.key;
-        }
+        inputs.value += e.key;
         // deletion
     } else if (e.key == "Backspace" || e.key == "Delete") {
         numToDelete = -1;
@@ -184,73 +197,25 @@ window.onkeydown = function (e) {
         }
 
         inputs.value = inputs.value.slice(0, numToDelete);
-    }
+    } 
 
+    // the last input was not an operator
     if (lastInput != " ") {
+        // add operator to display
         if (operators.includes(e.key)) {
             inputs.value += ` ${e.key} `;
         } else if (altMultiplication.includes(e.key)) {
             inputs.value += " x ";
         } else if (altDivision == e.key) {
             inputs.value += " ÷ ";
-        } else if ('%' == e.key) {
-            if (digits.includes(lastInput) && lastInput != '%') {
-                inputs.value += "%";
-            }
+            // adds decimal to display if valid
         } else if (e.key == '.') {
             if (!this.hasDecimals()) {
                 inputs.value += '.';
             }
+            // answer
         } else if (e.key == '=') {
-            // do equals operation
-            this.displayResult();
-        }
-    }
-};
-
-// enable keyboard input
-window.onkeypress = function (e) {
-    let digits = "1234567890";
-    let operators = "-+÷x";
-    let altMultiplication = "X*";
-    let altDivision = '/';
-    let lastInput = inputs.value.slice(-1);
-
-    // prevent user from selecting input field
-    if (e.code != "ArrowLeft" && e.code != "ArrowRight") {
-        e.preventDefault();
-    } else {
-        inputs.focus();
-    }
-
-    // numbers
-    if (digits.includes(e.key)) {
-        if (lastInput != '%') {
-            inputs.value += e.key;
-        }
-        // deletion
-    } else if (e.key == "Backspace" || e.key == "Delete") {
-        numToDelete = -1;
-        if (lastInput == " ") {
-            numToDelete = -3;
-        }
-
-        inputs.value = inputs.value.slice(0, numToDelete);
-    }
-
-    if (lastInput != " ") {
-        if (operators.includes(e.key)) {
-            inputs.value += ` ${e.key} `;
-        } else if (altMultiplication.includes(e.key)) {
-            inputs.value += " x ";
-        } else if (altDivision == e.key) {
-            inputs.value += " ÷ ";
-        } else if ('%' == e.key) {
-            if (digits.includes(lastInput) && lastInput != '%') {
-                inputs.value += "%";
-            }
-        } else if (e.key == '=') {
-            // do equals operation
+            //display result
             this.displayResult();
         }
     }
