@@ -214,7 +214,7 @@ window.onkeydown = function (e) {
                 inputs.value += '.';
             }
             // answer
-        } else if (e.key == '=') {
+        } else if (e.key == '=' || e.key == 'Enter') {
             //display result
             this.displayResult();
         }
