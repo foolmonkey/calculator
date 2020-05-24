@@ -197,7 +197,7 @@ window.onkeydown = function (e) {
         }
 
         inputs.value = inputs.value.slice(0, numToDelete);
-    } 
+    }
 
     // the last input was not an operator
     if (lastInput != " ") {
