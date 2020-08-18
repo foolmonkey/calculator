@@ -140,8 +140,11 @@ function convertSign() {
 // handle calculator buttons
 for (let i = 0, len = buttons.length; i < len; i++) {
   buttons[i].addEventListener("click", function (e) {
-    let toAppend = buttons[i].textContent.charAt(0);
+    let toAppend = buttons[i].textContent;
     let lastInput = inputs.value.slice(-1);
+    if (toAppend.length == 1 && "+-÷x".includes(toAppend)) {
+      toAppend = ` ${toAppend} `;
+    }
 
     switch (toAppend) {
       case "=":
