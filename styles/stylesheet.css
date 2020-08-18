@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  font-family: "Rubik", sans-serif;
+  font-family: "Rubik", Helvetica, sans-serif;
 }
 
 #gameName {
@@ -19,11 +19,15 @@ body {
   font-weight: lighter;
   display: flex;
   justify-content: center;
-  font-family: "Rubik", cursive;
   margin: 0;
   padding: 0.5em;
-  color: white;
   background-color: rgb(23, 36, 48);
+}
+
+h1 {
+  font-family: "Rubik", Helvetica, sans-serif;
+  font-weight: bold;
+  color: white;
 }
 
 #container {
@@ -110,7 +114,12 @@ button:active {
 }
 
 #delete {
-  font-weight: bold;
+  color: transparent;
+}
+
+#delete i {
+  margin-left: -15px;
+  color: black;
 }
 
 @media only screen and (min-width: 768px) {

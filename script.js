@@ -140,7 +140,7 @@ function convertSign() {
 // handle calculator buttons
 for (let i = 0, len = buttons.length; i < len; i++) {
   buttons[i].addEventListener("click", function (e) {
-    let toAppend = buttons[i].textContent;
+    let toAppend = buttons[i].textContent.charAt(0);
     let lastInput = inputs.value.slice(-1);
 
     switch (toAppend) {
@@ -158,7 +158,7 @@ for (let i = 0, len = buttons.length; i < len; i++) {
           inputs.value += toAppend;
         }
         break;
-      case "⌫":
+      case ",":
         numToDelete = -1;
         if (lastInput == " ") {
           numToDelete = -3;
