@@ -22,12 +22,10 @@ body {
   margin: 0;
   padding: 0.5em;
   background-color: rgb(23, 36, 48);
-}
-
-h1 {
   font-family: "Rubik", sans-serif;
   font-weight: bold;
   color: white;
+  box-shadow: 0 0 3vh rgba(0, 0, 0, 0.445);
 }
 
 #container {
@@ -38,6 +36,7 @@ h1 {
   background-color: white;
   margin: auto;
   margin-top: 0;
+  box-shadow: 0 0 3vh rgba(0, 0, 0, 0.445);
 }
 
 .containerRow {
@@ -49,11 +48,16 @@ h1 {
 #equals {
   width: 200%;
   background-color: rgb(201, 155, 57);
+  border: none !important;
 }
 
 #equals:hover {
-  width: 200%;
   background-color: rgb(175, 135, 49);
+}
+
+#equals:active {
+  background-color: rgb(161, 125, 48);
+  border: none !important;
 }
 
 #display {
@@ -105,6 +109,7 @@ button {
   outline: none;
   font-weight: bold;
   color: rgb(46, 46, 46);
+  border: 1px solid rgb(211, 211, 211);
 }
 
 button:hover {
@@ -115,6 +120,19 @@ button:active {
   -moz-box-shadow: inset 0 0 0 2px hsla(0, 0%, 65%, 0.745);
   -webkit-box-shadow: inset 0 0 0 2px hsla(0, 0%, 65%, 0.745);
   box-shadow: inset 0 0 0 2px hsla(0, 0%, 65%, 0.745);
+}
+
+.operations {
+  background-color: rgb(214, 214, 214);
+  border: 1px solid rgb(194, 194, 194);
+}
+
+.operations:hover {
+  background-color: rgb(187, 187, 187);
+}
+
+.operations:active {
+  background-color: rgb(170, 170, 170);
 }
 
 #delete {
