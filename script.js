@@ -155,6 +155,7 @@ for (let i = 0, len = buttons.length; i < len; i++) {
       case "C":
         inputs.value = "";
         prevInputs.textContent = "";
+        cache = [];
         break;
       case ".":
         if (!hasDecimals()) {
@@ -196,8 +197,6 @@ window.onkeydown = function (e) {
   // prevent user from selecting input field
   if (e.code != "ArrowLeft" && e.code != "ArrowRight") {
     e.preventDefault();
-  } else {
-    inputs.focus();
   }
 
   // numbers
@@ -233,6 +232,8 @@ window.onkeydown = function (e) {
       this.displayResult();
     }
   }
+
+  inputs.focus();
 };
 
 prevInputs.onclick = function (e) {
