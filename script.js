@@ -180,6 +180,9 @@ for (let i = 0, len = buttons.length; i < len; i++) {
           inputs.value += toAppend;
         } else if (lastInput != " ") {
           inputs.value += toAppend;
+        } else if (lastInput == " ") {
+          inputs.value = inputs.value.slice(0, inputs.value.length - 3);
+          inputs.value += toAppend;
         }
     }
   });
