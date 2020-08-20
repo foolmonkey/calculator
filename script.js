@@ -214,15 +214,8 @@ window.onkeydown = function (e) {
 
   // the last input was not an operator
   if (lastInput != " ") {
-    // add operator to display
-    if (operators.includes(e.key)) {
-      inputs.value += ` ${e.key} `;
-    } else if (altMultiplication.includes(e.key)) {
-      inputs.value += " x ";
-    } else if (altDivision == e.key) {
-      inputs.value += " ÷ ";
-      // adds decimal to display if valid
-    } else if (e.key == ".") {
+    // adds decimal to display if valid
+    if (e.key == ".") {
       if (!this.hasDecimals()) {
         inputs.value += ".";
       }
@@ -231,6 +224,28 @@ window.onkeydown = function (e) {
       //display result
       this.displayResult();
     }
+  } else {
+    // add operator to display
+    let isOperator = false;
+    if (
+      operators.includes(e.key) ||
+      altMultiplication.includes(e.key) ||
+      altDivision == e.key
+    ) {
+      isOperator = true;
+    }
+
+    if (isOperator) {
+      inputs.value = inputs.value.slice(0, inputs.value.length - 3);
+    }
+  }
+
+  if (operators.includes(e.key)) {
+    inputs.value += ` ${e.key} `;
+  } else if (altMultiplication.includes(e.key)) {
+    inputs.value += " x ";
+  } else if (altDivision == e.key) {
+    inputs.value += " ÷ ";
   }
 
   inputs.focus();
