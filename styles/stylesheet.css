@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  font-family: "Rubik", sans-serif;
+  font-family: "Rubik", Helvetica, Arial, sans-serif;
 }
 
 #gameName {
@@ -45,28 +45,11 @@ body {
   flex-flow: row;
 }
 
-#equals {
-  width: 200%;
-  box-sizing: border-box;
-  padding-left: 3px;
-  background-color: rgb(201, 155, 57);
-  border: none !important;
-}
-
-#equals:hover {
-  background-color: rgb(175, 135, 49);
-}
-
-#equals:active {
-  background-color: rgb(161, 125, 48);
-  border: none !important;
-}
-
 #display {
   height: 10vh;
   width: 100%;
   flex-flow: column nowrap;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 input {
@@ -79,15 +62,43 @@ input {
   color: rgb(46, 46, 46);
 }
 
-#prevInputs {
-  text-align: right;
-  width: -webkit-fill-available;
-  margin: 2vh 1.5vh 0vh 2.5vh;
+/* Previous Inputs */
+#prevInputs-container {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: 30%;
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
   color: rgb(141, 141, 141);
-  height: 30%;
-  vertical-align: middle;
+}
+
+#prevInputs-history {
+  padding: 0 10px;
+  position: absolute;
+  z-index: 2;
+}
+
+#prevInputs {
+  z-index: 3;
+  max-width: 100%;
+  text-align: right;
+  flex-grow: 1;
+  padding: 0;
+  margin: 0;
+  padding-right: 10px;
   font-size: 2.5vh;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
+}
+
+#prevInputs:empty {
+  background-color: white;
+  width: 100%;
+  height: 100%;
 }
 
 #prevInputs:not(:empty):hover {
@@ -95,19 +106,23 @@ input {
   cursor: pointer;
 }
 
-#prevInputs:empty ::-moz-selection {
+#prevInputs:empty::-moz-selection {
   background: rgb(192, 192, 192);
 }
 
-::selection {
+#prevInputs:empty::selection {
   background: rgb(192, 192, 192);
 }
 
+/* Calculator Buttons */
 button {
   padding: 0;
-  width: -webkit-fill-available;
+  width: 100%;
   font-size: 4vh;
   border-style: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
   outline: none;
   font-weight: bold;
@@ -138,6 +153,25 @@ button:active {
   background-color: rgb(170, 170, 170);
 }
 
+/* Equals (=) Button */
+#equals {
+  width: 200%;
+  box-sizing: border-box;
+  padding-left: 3px;
+  background-color: rgb(201, 155, 57);
+  border: none !important;
+}
+
+#equals:hover {
+  background-color: rgb(175, 135, 49);
+}
+
+#equals:active {
+  background-color: rgb(161, 125, 48);
+  border: none !important;
+}
+
+/* Delete Button */
 #delete {
   color: transparent;
 }
@@ -147,6 +181,7 @@ button:active {
   color: rgb(46, 46, 46);
 }
 
+/* Github Icon */
 #github {
   color: rgb(23, 36, 48);
   margin: 15px;
@@ -156,6 +191,7 @@ button:active {
   z-index: -1;
 }
 
+/* Media Queries */
 @media only screen and (min-width: 768px) {
   #gameName {
     font-size: 2.8em;

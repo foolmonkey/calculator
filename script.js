@@ -210,6 +210,10 @@ window.onkeydown = function (e) {
     numToDelete = -1;
     if (lastInput == " ") {
       numToDelete = -3;
+    } else if (lastInput == "N") {
+      numToDelete = -3;
+    } else if (lastInput == "y") {
+      numToDelete = -8;
     }
 
     inputs.value = inputs.value.slice(0, numToDelete);
