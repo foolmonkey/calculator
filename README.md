@@ -9,3 +9,5 @@ To begin, try entering in a math expression with your keyboard or mouse! Press '
 
 Built with HTML, CSS, and basic Javascript, it was created as a project assignment for the The Odin Project.
 
+-----
+![](calculator.gif)
